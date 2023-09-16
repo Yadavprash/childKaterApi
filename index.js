@@ -24,6 +24,8 @@ const URI = process.env.MONGO_URI;
 const store = new MongoStore({ url: URI });
 
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended:true }));
 app.use(express.static('public'));
 
