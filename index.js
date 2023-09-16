@@ -10,6 +10,8 @@ const session = require('express-session');
 const passport = require('passport');
 const routes = require('./routes.js');
 const auth = require('./auth.js');
+const ejs = require('ejs');
+
 
 const  app = express();
 
@@ -21,6 +23,7 @@ const MongoStore = require('connect-mongo')(session);
 const URI = process.env.MONGO_URI;
 const store = new MongoStore({ url: URI });
 
+app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended:true }));
 app.use(express.static('public'));
 
