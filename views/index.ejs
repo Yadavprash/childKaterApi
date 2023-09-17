@@ -2,36 +2,65 @@
 <html>
 <head>
     <title>Login Page</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="/public/style.css">
 </head>
 <body>
+<div class="api-info">
+    <h3>API Info</h3>
+    <p>Base: /</p>
+    <p>Register: /register</p>
+    <p>Login: /login</p>
+    <p>Logout: /logout</p>
+    <p>Questions: /api/ques</p>
+    <p>SpecificQues: /api/ques/:id  eg:/api/ques/50</p>
+    <h4>SampleResponse:</h4>
+    <pre>
+        <code>
+            {
+            number: 1,
+            title: 'How would you rate your overall physical health?',
+            options: [
+            { option: 'Excellent', marks: 10 },
+            { option: 'Good', marks: 8 },
+            { option: 'Fair', marks: 6 },
+            { option: 'Poor', marks: 4 }
+            ]
+            }
+        </code>
+    </pre>
+
+</div>
+
+
 <div class="login-container">
     <h2>Register</h2>
     <form action="/register" method="post">
         <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+            <label for="register-username">Username:</label>
+            <input type="text" id="register-username" name="username" required>
         </div>
         <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <label for="register-password">Password:</label>
+            <input type="password" id="register-password" name="password" required>
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
     </form>
 </div>
+
 <div class="login-container">
     <h2>Login</h2>
     <form action="/login" method="post">
         <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+            <label for="login-username">Username:</label>
+            <input type="text" id="login-username" name="username" required>
         </div>
         <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" name="password" required>
         </div>
         <button type="submit">Login</button>
     </form>
 </div>
+
 </body>
 </html>

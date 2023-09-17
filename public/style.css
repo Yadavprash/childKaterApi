@@ -1,48 +1,49 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: monospace, sans-serif;
     background-color: #f4f4f4;
 }
 
-.login-container {
-    width: 300px;
-    margin: 0 auto;
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+
+
+.api-info {
+    background-color: #f7f7f7;
     padding: 20px;
-    background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px;
 }
 
-h2 {
-    text-align: center;
+.api-info h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
 }
 
-.form-group {
-    margin-bottom: 15px;
+.api-info p {
+    margin: 5px 0;
+    color: #555;
 }
 
-label {
+.api-info h3:last-child {
+    font-size: 20px;
+    margin-top: 20px;
+    color: #333;
+}
+
+.api-info code {
     display: block;
-    font-weight: bold;
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 100%;
+    width: auto;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    overflow-x: auto;
+    font-family: monospace;
 }
 
-button[type="submit"] {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-button[type="submit"]:hover {
-    background-color: #0056b3;
-}

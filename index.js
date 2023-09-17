@@ -11,6 +11,7 @@ const passport = require('passport');
 const routes = require('./routes.js');
 const auth = require('./auth.js');
 const ejs = require('ejs');
+const cors = require('cors');
 
 
 const  app = express();
@@ -25,9 +26,10 @@ const store = new MongoStore({ url: URI });
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended:true }));
-app.use(express.static('public'));
+app.use('/public', express.static(__dirname + '/public'));
 
 const port=3000;
 
@@ -132,18 +134,19 @@ myDB(async client=>{
 
     myDataBase.findOne({number: 1}).then(ques=>{
         if(!ques){
-            myDataBase.insertMany(questions).then(result=>{
-                console.log(result);
-            }).catch(err=>{
-                console.log(err);
-            })
+            // myDataBase.insertMany(questions).then(result=>{
+            //     console.log(result);
+            // }).catch(err=>{
+            //     console.log(err);
+            // })
+            console.log('No questions found');
         }else{
             console.log(ques);
         }
     })
 
 
-    routes(app, myUsers);
+    routes(app, myUsers,myDataBase);
     auth(app, myUsers);
 
 }).catch(err=>{

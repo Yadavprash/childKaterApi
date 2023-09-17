@@ -2,11 +2,33 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 
 
-module.exports = function (app, myUsers) {
+module.exports = function (app, myUsers ,myDatabase) {
 
     app.route('/').get((req, res) => {
         res.render('index.ejs');
     });
+
+    app.route('/api/ques').get((req, res) => {
+        myDatabase.find().toArray((err, result)=>{
+            if(err){
+                console.log(err);
+            }else{
+                res.json(result);
+            }
+        })
+    }
+    );
+    app.route('/api/ques/:id').get((req, res) => {
+        const id = parseInt( req.params.id );
+        myDatabase.findOne({number: id}).then(result=>{
+            res.json(result);
+        }).catch(err=>{
+            console.log(err);
+            res.json({error: 'Not found'});
+        })
+    }
+    );
+
 
     app.route('/login').post(passport.authenticate('local', { failureRedirect: '/' }),
         (req, res, next) => {
@@ -14,8 +36,14 @@ module.exports = function (app, myUsers) {
         }
     );
 
+    app.route('/logout').get((req, res) => {
+        req.logout();
+        res.redirect('/');
+    }
+    );
+
     app.route('/profile').get((req, res) => {
-        res.send('profile');
+        res.json({message: 'Profile page'});
     }
     );
 
@@ -45,7 +73,7 @@ module.exports = function (app, myUsers) {
 
     }, passport.authenticate('local', { failureRedirect: '/' }),
         (req, res, next) => {
-            res.redirect('/profile');
+            res.json({message: 'Registration successful'});
         }
     );
 
