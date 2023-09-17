@@ -5,8 +5,11 @@ const bcrypt = require('bcrypt');
 module.exports = function (app, myUsers ,myDatabase) {
 
     app.route('/').get((req, res) => {
-        res.render('index.ejs');
+        const errorMessage = req.flash('error')[0];
+        console.log(errorMessage);
+        res.render('index.ejs',{errorMessage});
     });
+
 
     app.route('/api/ques').get((req, res) => {
         myDatabase.find().toArray((err, result)=>{
@@ -30,22 +33,29 @@ module.exports = function (app, myUsers ,myDatabase) {
     );
 
 
-    app.route('/login').post(passport.authenticate('local', { failureRedirect: '/' }),
+    app.route('/login').post(passport.authenticate('local', { failureRedirect: '/',failureFlash: true, }),
         (req, res, next) => {
             res.redirect('/profile');
         }
     );
 
+    app.route('/login').get(ensureAuthenticated , (req , res)=>{
+        res.redirect('/profile');
+    })
+
     app.route('/logout').get((req, res) => {
-        req.logout();
+        req.logout((err) => {
+                if (err) {
+                    console.error(err);
+                }
         res.redirect('/');
+    })
     }
     );
 
-    app.route('/profile').get((req, res) => {
-        res.json({message: 'Profile page'});
-    }
-    );
+    app.route('/profile').get(ensureAuthenticated, (req,res) => {
+        res.json({ username: req.user.username  });
+    });
 
     app.route('/register').post((req, res ,next) => {
        const username = req.body.username;
@@ -78,3 +88,10 @@ module.exports = function (app, myUsers ,myDatabase) {
     );
 
 }
+
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+};

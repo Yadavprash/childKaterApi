@@ -49,6 +49,12 @@
 
 <div class="login-container">
     <h2>Login</h2>
+    <% if (errorMessage) { %>
+        <div class="alert alert-danger">
+            <%= errorMessage %>
+            <a href="/" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        </div>
+    <% } %>
     <form action="/login" method="post">
         <div class="form-group">
             <label for="login-username">Username:</label>
@@ -60,6 +66,8 @@
         </div>
         <button type="submit">Login</button>
     </form>
+
+
 </div>
 
 </body>

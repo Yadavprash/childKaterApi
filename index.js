@@ -7,9 +7,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const myDB = require('./connection');
 const session = require('express-session');
-// const passport = require('passport');
+const passport = require('passport');
 const routes = require('./routes.js');
 const auth = require('./auth.js');
+const flash = require('connect-flash');
 // const ejs = require('ejs');
 // const cors = require('cors');
 
@@ -26,7 +27,6 @@ const store = new MongoStore({ url: URI });
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-// app.use(cors());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended:true }));
 app.use('/public', express.static(__dirname + '/public'));
@@ -64,6 +64,10 @@ app.use(session({
     key: 'express.sid',
     store: store
 }));
+app.use(flash());
+// Initialize Passport.js
+app.use(passport.initialize());
+app.use(passport.session());
 
 const questions = [{
     number: 1,
