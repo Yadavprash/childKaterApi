@@ -52,7 +52,7 @@ module.exports = function (app, myUsers ,myDatabase) {
        const hash = bcrypt.hashSync(req.body.password, 12);
 
        myUsers.findOne({username: username}, (err, user)=>{
-           console.log('hi!');
+           // console.log('hi!');
               if(err){
                 console.log(err);
               }else if(user){

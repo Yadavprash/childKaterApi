@@ -1,32 +1,32 @@
 'use strict';
 require('dotenv').config();
 const express = require('express');
-const axios = require('axios');
-const { MongoClient } = require('mongodb');
+// const axios = require('axios');
+// const { MongoClient } = require('mongodb');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const myDB = require('./connection');
 const session = require('express-session');
-const passport = require('passport');
+// const passport = require('passport');
 const routes = require('./routes.js');
 const auth = require('./auth.js');
-const ejs = require('ejs');
-const cors = require('cors');
+// const ejs = require('ejs');
+// const cors = require('cors');
 
 
 const  app = express();
 
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
-const passportSocketIo = require('passport.socketio');
-const cookieParser = require('cookie-parser');
+// const http = require('http').createServer(app);
+// const io = require('socket.io')(http);
+// const passportSocketIo = require('passport.socketio');
+// const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo')(session);
 const URI = process.env.MONGO_URI;
 const store = new MongoStore({ url: URI });
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended:true }));
 app.use('/public', express.static(__dirname + '/public'));
@@ -132,18 +132,18 @@ myDB(async client=>{
     const myDataBase = await client.db('database').collection('users');
     const myUsers = await client.db('database').collection('userBase');
 
-    myDataBase.findOne({number: 1}).then(ques=>{
-        if(!ques){
-            // myDataBase.insertMany(questions).then(result=>{
-            //     console.log(result);
-            // }).catch(err=>{
-            //     console.log(err);
-            // })
-            console.log('No questions found');
-        }else{
-            console.log(ques);
-        }
-    })
+    // myDataBase.findOne({number: 1}).then(ques=>{
+    //     if(!ques){
+    //         // myDataBase.insertMany(questions).then(result=>{
+    //         //     console.log(result);
+    //         // }).catch(err=>{
+    //         //     console.log(err);
+    //         // })
+    //         console.log('No questions found');
+    //     }else{
+    //         console.log(ques);
+    //     }
+    // })
 
 
     routes(app, myUsers,myDataBase);
